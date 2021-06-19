@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
-import { Theme, TyphographyComponent } from "./packages/ui";
+import { Theme, TyphographyComponent, ButtonComponent } from "./packages/ui";
 
 const GlobalStyle = createGlobalStyle`
   *,
@@ -20,18 +20,20 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100vh;
     background: ${Theme.color.bg};
+    margin: 60px;
   }
 `;
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
-    <TyphographyComponent
-      color={Theme.color.yellow}
-      textType="HEADING"
-      fontWeight={Theme.font.w400}
-      text="Infine rendiamo sicuro l’account, mi raccomando una password complessa!"
-    ></TyphographyComponent>
+    <ButtonComponent
+      bgColorLayer={Theme.color.darkBlue}
+      bgColor={Theme.color.blue}
+      label="Registrati ora"
+      isUpper={true}
+      textColor={Theme.color.yellow}
+    />
   </React.StrictMode>,
   document.getElementById("root")
 );

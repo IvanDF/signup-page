@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import styled from "styled-components";
 import { Theme } from "../Theme/Theme";
 import ITyphographyComponent from "./ITyphographyComponent";
@@ -24,7 +24,6 @@ const Heading = styled.h3<{
 `;
 
 export const TyphographyComponent: React.FC<ITyphographyComponent> = ({
-  text,
   fontSize,
   fontWeight,
   textType = "BODY",
@@ -35,7 +34,7 @@ export const TyphographyComponent: React.FC<ITyphographyComponent> = ({
     <>
       {textType === "HEADING" ? (
         <Heading color={color} fontWeight={fontWeight} fontSize={fontSize}>
-          {text}
+          {Children}
         </Heading>
       ) : (
         textType === "BODY" && (
@@ -45,7 +44,7 @@ export const TyphographyComponent: React.FC<ITyphographyComponent> = ({
             fontWeight={fontWeight}
             fontSize={fontSize}
           >
-            {text}
+            {Children}
           </Paragraph>
         )
       )}
