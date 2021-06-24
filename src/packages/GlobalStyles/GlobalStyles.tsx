@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle, css } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
 import { Theme } from "../ui";
 
 export const GlobalStyle = createGlobalStyle`
@@ -17,11 +17,11 @@ export const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     height: 100vh;
-    background: ${Theme.color.bg};
+    /* background: ${Theme.color.bg}; */
     margin: 60px;
   }`;
 
-export const DFlex = (type: string) => css`
+export const DFlex = (type?: string) => css`
   display: flex;
   ${type === "CENTER"
     ? `
@@ -39,4 +39,37 @@ export const DFlex = (type: string) => css`
       `
     justify-content: space-between;
     align-items: center;`}
+`;
+
+export const Position = (posType: string, posAxis?: string) => css`
+  position: ${posType === "AB"
+    ? "absolute"
+    : posType === "RL"
+    ? "position: relative"
+    : posType === "FX" && "position: fixed"};
+
+  ${posAxis === "XY"
+    ? `
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      `
+    : posAxis === "X"
+    ? `
+      left: 50%;
+      transform: translateX(-50%);
+      `
+    : posAxis === "Y" &&
+      `
+      top: 50%;
+      transform: translateY(-50%);
+      `}
+`;
+
+export const ResetInput = () => css`
+  background: none;
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
 `;
