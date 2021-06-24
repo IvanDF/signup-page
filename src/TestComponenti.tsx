@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { Theme } from "./packages/ui";
 import { InputComponent } from "./packages/ui/components/InputComponent/InputComponent";
 
 export const TestCompoente: React.FC = () => {
@@ -12,9 +13,11 @@ export const TestCompoente: React.FC = () => {
   return (
     <>
       <InputComponent
-        error="Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eaque odit facilis omnis ad saepe nisi dolore nesciunt sapiente, molestias et labore vitae laborum officia ea. Modi, doloribus. Doloribus, dicta."
-        linesColor="red"
-        caretColor="red"
+        error={true}
+        label="Password"
+        placeholder="Inserisci Password"
+        errorMessage="La password non è sicura! Deve contenere almeno una una lettera maiuscola ed un numero ed un carattere speciale"
+        color={Theme.color.blue}
         value={prova}
         onChange={(e) => {
           setProva(e.target.value);

@@ -3,13 +3,15 @@ export default interface IInputComponent {
   type?: string;
 
   //error
-  error: string;
+  error?: boolean;
+  errorMessage?: string;
 
   // Value handler
+  label: string;
   value: string;
+  placeholder: string;
   onChange: (e: any) => void;
 
   // Colors
-  caretColor: string;
-  linesColor: string;
+  color: string;
 }

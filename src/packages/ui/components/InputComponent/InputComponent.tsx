@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import {
@@ -6,16 +7,19 @@ import {
   Position,
   ResetInput,
 } from "../../../GlobalStyles/GlobalStyles";
+import { Rgba } from "../Rgba/Rgba";
 import { Theme } from "../Theme/Theme";
 import IInputComponent from "./IInputComponent";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  position: relative;
+  margin-top: 200px; // DEBUG
+`;
 
 const InputWrapper = styled.div<{ lineColor: string }>`
   position: relative;
   width: 400px;
   ${DFlex()};
-  background: #fff;
   padding: 20px;
   &::after {
     content: "";
@@ -38,8 +42,9 @@ const InputWrapper = styled.div<{ lineColor: string }>`
   }
 `;
 
-const Label = styled.label<{ isFocused: boolean }>`
+const Label = styled.label<{ isFocused: boolean; lableColor: string }>`
   ${Position("AB", "Y")}
+  color: ${(props) => props.lableColor};
   left: 20px;
   ${(props) =>
     props.isFocused
@@ -52,17 +57,29 @@ const Label = styled.label<{ isFocused: boolean }>`
         )}; transition: top 250ms ease, left 300ms 250ms ease;`}
 `;
 
-const Input = styled.input<{ caretColor: string }>`
-  width: 100%;
+const Input = styled.input<{
+  caretColor: string;
+  inputTextColor: string;
+  isFocused: boolean;
+}>`
   ${ResetInput}
+  width: 100%;
+  color: ${(props) => props.inputTextColor};
   caret-color: ${(props) => props.caretColor};
+  &::placeholder {
+    color: ${(props) => Rgba(props.inputTextColor, Theme.opacity.o5)};
+    width: ${(props) => (props.isFocused ? "100%" : "0")};
+    overflow: hidden;
+    transition: ${(props) =>
+      props.isFocused ? "width 250ms 60ms linear" : "width 300ms 100ms linear"};
+  }
 `;
 
 const ErrorWrapper = styled.div`
-  position: relative;
+  position: absolute;
   display: flex;
-  left: 120px;
-  bottom: 10px;
+  left: 115px;
+  bottom: 70px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -78,11 +95,13 @@ const ErrorMessge = styled.div`
 
 export const InputComponent: React.FC<IInputComponent> = ({
   type = "text",
+  label,
   value,
+  placeholder,
   error,
+  errorMessage,
   onChange,
-  caretColor,
-  linesColor,
+  color,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -90,7 +109,7 @@ export const InputComponent: React.FC<IInputComponent> = ({
     <Wrapper>
       {error && (
         <ErrorWrapper>
-          <ErrorMessge>{error}</ErrorMessge>
+          <ErrorMessge>{errorMessage}</ErrorMessge>
           <svg
             viewBox="0 0 682 32"
             fill="none"
@@ -106,13 +125,18 @@ export const InputComponent: React.FC<IInputComponent> = ({
           </svg>
         </ErrorWrapper>
       )}
-      <InputWrapper lineColor={linesColor}>
-        <Label isFocused={isFocused}>Label</Label>
+      <InputWrapper lineColor={color}>
+        <Label lableColor={color} isFocused={isFocused}>
+          {label}
+        </Label>
         <Input
-          caretColor={caretColor}
+          isFocused={isFocused}
+          placeholder={placeholder}
+          inputTextColor={color}
+          caretColor={color}
           value={value}
-          onFocus={() => setIsFocused(!isFocused)}
-          onBlur={() => setIsFocused(!isFocused)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => value.length === 0 && setIsFocused(false)}
           type={type}
           onChange={onChange}
         />
