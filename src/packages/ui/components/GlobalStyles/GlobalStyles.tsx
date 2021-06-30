@@ -1,5 +1,10 @@
 import { createGlobalStyle, css } from "styled-components";
-import { Theme } from "../ui";
+import { Theme } from "../../index";
+
+export const FillSize = () => css`
+  width: 100%;
+  height: 100%;
+`;
 
 export const GlobalStyle = createGlobalStyle`
   *,
@@ -17,7 +22,10 @@ export const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     height: 100vh;
-    background: ${Theme.color.yellow};
+    background: ${Theme.color.bg};
+    #root {
+      ${FillSize}
+    }
   }`;
 
 export const DFlex = (type?: string) => css`

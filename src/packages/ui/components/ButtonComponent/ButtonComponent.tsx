@@ -5,8 +5,8 @@ import IButtonComponent from "./IButtonComponent";
 
 const ButtonLayer = styled.div<{ bgColorLayer: string }>`
   position: relative;
-  width: 100%;
   height: 100%;
+  width: 100%;
   background-color: ${({ bgColorLayer }) => bgColorLayer};
   padding: 20px 25px;
   border-radius: 8px;

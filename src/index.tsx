@@ -1,14 +1,20 @@
-import React from "react";
 import ReactDOM from "react-dom";
+import styled from "styled-components";
 import { App } from "./App";
-import { GlobalStyle } from "./packages/GlobalStyles/GlobalStyles";
+import {
+  BackgroundLayersComponent,
+  FillSize,
+  GlobalStyle,
+} from "./packages/ui";
+
+const Wrapper = styled.div`
+  ${FillSize}
+`;
 
 ReactDOM.render(
-  <React.StrictMode>
-    <>
-      <GlobalStyle />
-      <App />
-    </>
-  </React.StrictMode>,
+  <Wrapper>
+    <GlobalStyle />
+    <App />
+  </Wrapper>,
   document.getElementById("root")
 );

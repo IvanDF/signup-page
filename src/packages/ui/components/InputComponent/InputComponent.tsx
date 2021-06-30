@@ -1,19 +1,13 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import {
-  DFlex,
-  Position,
-  ResetInput,
-} from "../../../GlobalStyles/GlobalStyles";
+import { DFlex, Position, ResetInput } from "../../index";
 import { Rgba } from "../Rgba/Rgba";
 import { Theme } from "../Theme/Theme";
 import IInputComponent from "./IInputComponent";
 
 const Wrapper = styled.div`
   position: relative;
-  margin-top: 200px; // DEBUG
 `;
 
 const InputWrapper = styled.div<{ lineColor: string }>`
@@ -63,15 +57,17 @@ const Input = styled.input<{
   isFocused: boolean;
 }>`
   ${ResetInput}
-  width: 100%;
+  /* width: 100%; */
   color: ${(props) => props.inputTextColor};
   caret-color: ${(props) => props.caretColor};
   &::placeholder {
     color: ${(props) => Rgba(props.inputTextColor, Theme.opacity.o5)};
-    width: ${(props) => (props.isFocused ? "100%" : "0")};
+    max-width: ${(props) => (props.isFocused ? "100%" : "0")};
     overflow: hidden;
     transition: ${(props) =>
-      props.isFocused ? "width 250ms 60ms linear" : "width 300ms 100ms linear"};
+      props.isFocused
+        ? "max-width 250ms 60ms linear"
+        : "max-width 300ms 100ms linear"};
   }
 `;
 
@@ -118,9 +114,9 @@ export const InputComponent: React.FC<IInputComponent> = ({
             <path
               d="M3 3.00003L194.15 3.00004L210.65 28.9999L227.15 3.00004L679 3.00004"
               stroke="#C85A5A"
-              stroke-width="5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </ErrorWrapper>
