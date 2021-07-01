@@ -1,12 +1,10 @@
-/*********************************************************************
- **********************************************************************
- ************************ DA TESTARE SU MOBILE ***********************
- *********************************************************************
- *********************************************************************/
-
+import { useEffect } from "react";
+import { useState } from "react";
 import styled, { css } from "styled-components";
+import { useViewport } from "../../../hooks";
 import { FillSize } from "../../index";
 import { Theme } from "../Theme/Theme";
+
 import IBackgroundLayersComponent from "./IBackgroundLayersComponent";
 
 const Wrapper = styled.div`
@@ -29,14 +27,14 @@ const DefaultLayersSettigns = (
   width: 0;
   height: 0;
   border-top: ${(props) =>
-      props.layerState === layerName ? "100vw" : sizeY + "px"}
+      props.layerState === layerName ? "100vh" : sizeY + "px"}
     solid
     ${(props) => (props.layerState === layerName ? bgColor : "transparent")};
   border-right: ${(props) =>
       props.layerState === layerName ? "100vw" : sizeX + "px"}
     solid ${bgColor};
   border-bottom: ${(props) =>
-      props.layerState === layerName ? "100vw" : sizeY + "px"}
+      props.layerState === layerName ? "100vh" : sizeY + "px"}
     solid
     ${(props) => (props.layerState === layerName ? bgColor : "transparent")};
   transform: translateY(50%);
@@ -52,75 +50,82 @@ const BackgroundLayer = styled.div<{
 }>`
   ${(props) =>
     props.name === "FINE"
-      ? DefaultLayersSettigns(5, 150 * 1.5, 150 * 1.1, "FINE", Theme.color.bg)
+      ? DefaultLayersSettigns(
+          props.zIndex,
+          props.size * 1.5,
+          props.size * 1.1,
+          props.name,
+          Theme.color.bg
+        )
       : props.name === "PASSWORD"
       ? DefaultLayersSettigns(
-          4,
-          225 * 1.5,
-          225 * 1.1,
-          "PASSWORD",
+          props.zIndex,
+          props.size * 1.5,
+          props.size * 1.1,
+          props.name,
           Theme.color.darkBlue
         )
       : props.name === "PHONE"
       ? DefaultLayersSettigns(
-          3,
-          300 * 1.5,
-          300 * 1.1,
-          "PHONE",
+          props.zIndex,
+          props.size * 1.5,
+          props.size * 1.1,
+          props.name,
           Theme.color.blue
         )
       : props.name === "EMAIL"
       ? DefaultLayersSettigns(
-          2,
-          375 * 1.5,
-          375 * 1.1,
-          "EMAIL",
+          props.zIndex,
+          props.size * 1.5,
+          props.size * 1.1,
+          props.name,
           Theme.color.orange
         )
       : props.name === "START" &&
         DefaultLayersSettigns(
-          1,
-          450 * 1.5,
-          450 * 1.1,
-          "START",
+          props.zIndex,
+          props.size * 1.5,
+          props.size * 1.1,
+          props.name,
           Theme.color.yellow
         )}
 `;
 
 export const BackgroundLayersComponent: React.FC<IBackgroundLayersComponent> =
   ({ layerState }) => {
-    const size = 150;
+    const deviceType = useViewport();
+
+    const [shapesSize, setShapesSize] = useState(0);
+
+    useEffect(() => {
+      deviceType.device === "mobile" ? setShapesSize(80) : setShapesSize(150);
+    }, [deviceType.device]);
 
     const BackgroundLayersSettings = [
       {
         name: "Fine",
         zIndex: 15,
-        layerState: "FINE",
-        size: size,
+        size: shapesSize,
       },
       {
-        name: "Email",
+        name: "Password",
         zIndex: 14,
-        layerState: "PASSWORD",
-        size: size * 1.5,
+        size: shapesSize * 1.5,
       },
       {
         name: "Phone",
         zIndex: 13,
-        layerState: "PHONE",
-        size: size * 2,
+        size: shapesSize * 2,
       },
       {
-        name: "Password",
+        name: "Email",
         zIndex: 12,
-        layerState: "EMAIL",
-        size: size * 2.5,
+        size: shapesSize * 2.5,
       },
       {
         name: "Start",
         zIndex: 11,
-        layerState: "START",
-        size: size * 3,
+        size: shapesSize * 3,
       },
     ];
 

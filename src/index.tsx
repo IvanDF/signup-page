@@ -1,11 +1,8 @@
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 import { App } from "./App";
-import {
-  BackgroundLayersComponent,
-  FillSize,
-  GlobalStyle,
-} from "./packages/ui";
+import { ViewportProvider } from "./packages/hooks";
+import { FillSize, GlobalStyle } from "./packages/ui";
 
 const Wrapper = styled.div`
   ${FillSize}
@@ -13,8 +10,10 @@ const Wrapper = styled.div`
 
 ReactDOM.render(
   <Wrapper>
-    <GlobalStyle />
-    <App />
+    <ViewportProvider>
+      <GlobalStyle />
+      <App />
+    </ViewportProvider>
   </Wrapper>,
   document.getElementById("root")
 );

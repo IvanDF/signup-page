@@ -44,3 +44,11 @@ export const Theme = {
     upper: "uppercase",
   },
 };
+
+export const breakpoints = {
+  // Phone screens
+  mobile: 768,
+
+  // Tablet screens
+  tablet: 1172,
+};
