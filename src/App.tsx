@@ -3,7 +3,7 @@ import Signup from "./packages/features/Signup";
 import { BackgroundLayersComponent, FillSize } from "./packages/ui";
 
 const Wrapper = styled.div`
-  ${FillSize}
+  ${FillSize};
 `;
 
 export const App = () => {

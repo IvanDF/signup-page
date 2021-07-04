@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { useViewport } from "../hooks";
 import {
@@ -23,17 +24,20 @@ const SignupFlows = styled.div<{ deviceType: string }>`
 
 const Signup: React.FC = () => {
   const device = useViewport();
+
+  const [inputText, setInputText] = useState("");
+
   return (
     <SignupFlows deviceType={device.device}>
       <TyphographyComponent textType={"HEADING"} color={Theme.color.yellow}>
         Registrati per poter accedere alla tua area personale
       </TyphographyComponent>
       <InputComponent
-        label="Usename"
+        label="Nome utente"
         color={Theme.color.yellow}
-        value=""
-        placeholder="Inserisci il tuo username"
-        onChange={(e) => console.log(e)}
+        value={inputText}
+        placeholder="Inserisci il tuo nome utente"
+        onChange={(e) => setInputText(e.target.value)}
       />
       <ButtonComponent
         label="Registrati ora"

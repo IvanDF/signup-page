@@ -15,13 +15,14 @@ const InputWrapper = styled.div<{ lineColor: string; deviceType: string }>`
   position: relative;
   width: ${({ deviceType }) => (deviceType !== "mobile" ? "400px" : "280px")};
   ${DFlex()};
-  padding: 25px 20px;
+  padding: 20px 20px;
   &::after {
     content: "";
     position: absolute;
     left: 0;
     top: 6px;
-    height: 5px;
+    height: 3px;
+    border-radius: 5px;
     width: 200px;
     background: ${(props) => props.lineColor};
   }
@@ -30,7 +31,8 @@ const InputWrapper = styled.div<{ lineColor: string; deviceType: string }>`
     position: absolute;
     left: 0;
     bottom: 9px;
-    height: 5px;
+    height: 3px;
+    border-radius: 5px;
     width: 100%;
     max-width: 100%;
     background: ${(props) => props.lineColor};
@@ -38,8 +40,9 @@ const InputWrapper = styled.div<{ lineColor: string; deviceType: string }>`
 `;
 
 const Label = styled.label<{ isFocused: boolean; lableColor: string }>`
-  ${Position("AB", "Y")}
+  font-family: "spartan", sans-serif;
   font-size: ${Theme.font.s24};
+  ${Position("AB", "Y")}
   color: ${(props) => props.lableColor};
   left: 20px;
   cursor: pointer;
@@ -60,10 +63,12 @@ const Input = styled.input<{
   isFocused: boolean;
 }>`
   ${ResetInput}
+  font-family: "spartan", sans-serif;
+  font-size: ${Theme.font.s24};
   color: ${(props) => props.inputTextColor};
   caret-color: ${(props) => props.caretColor};
-  font-size: ${Theme.font.s24};
   &::placeholder {
+    font-family: "spartan", sans-serif;
     font-size: ${Theme.font.s24};
     color: ${(props) => Rgba(props.inputTextColor, Theme.opacity.o5)};
     max-width: ${(props) => (props.isFocused ? "100%" : "0")};

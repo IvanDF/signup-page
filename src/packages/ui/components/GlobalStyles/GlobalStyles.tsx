@@ -6,6 +6,14 @@ export const FillSize = () => css`
   height: 100%;
 `;
 
+/********************************************************
+ * DA IMPLEMENTARE LO STATO BLOBALE CON REDUX
+ *******************************************************/
+let layerState = "";
+/********************************************************
+ * DA IMPLEMENTARE LO STATO BLOBALE CON REDUX
+ *******************************************************/
+
 export const GlobalStyle = createGlobalStyle`
   *,
   *::before,
@@ -19,6 +27,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: ${Theme.font.s18};
     font-weight: ${Theme.font.w400};
   }
+
   body {
     width: 100%;
     height: 100vh;
@@ -26,6 +35,35 @@ export const GlobalStyle = createGlobalStyle`
     #root {
       ${FillSize}
     }
+    *::selection
+    {
+       ${
+         layerState === "PASSWORD"
+           ? `
+       background: ${Theme.color.orange};
+       color: ${Theme.color.darkBlue};
+       `
+           : layerState === "PHONE"
+           ? `
+       background: ${Theme.color.yellow};
+       color: ${Theme.color.blue};
+       `
+           : layerState === "EMAIL"
+           ? `
+       background: ${Theme.color.darkBlue};
+       color: ${Theme.color.orange};
+       `
+           : layerState === "START"
+           ? `
+       background: ${Theme.color.blue};
+       color: ${Theme.color.warning};
+       `
+           : `
+           background: ${Theme.color.yellow};
+       color: ${Theme.color.bg};
+       `
+       } 
+      }
   }`;
 
 export const DFlex = (type?: string) => css`
