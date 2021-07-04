@@ -24,8 +24,8 @@ const Button = styled.button<{
   ${({ isUpper }) => isUpper && "text-transform: uppercase"};
   color: ${({ textColor }) => textColor};
   background-color: ${({ bgColor }) => bgColor};
-  border-radius: 8px;
-  font-size: ${Theme.font.s34};
+  border-radius: 5px;
+  font-size: ${Theme.font.s24};
   z-index: 1;
   border: none;
   outline: none;

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { useViewport } from "../../../hooks";
 import { DFlex, Position, ResetInput } from "../../index";
 import { Rgba } from "../Rgba/Rgba";
 import { Theme } from "../Theme/Theme";
@@ -10,11 +11,11 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const InputWrapper = styled.div<{ lineColor: string }>`
+const InputWrapper = styled.div<{ lineColor: string; deviceType: string }>`
   position: relative;
-  width: 400px;
+  width: ${({ deviceType }) => (deviceType !== "mobile" ? "400px" : "280px")};
   ${DFlex()};
-  padding: 20px;
+  padding: 25px 20px;
   &::after {
     content: "";
     position: absolute;
@@ -38,17 +39,19 @@ const InputWrapper = styled.div<{ lineColor: string }>`
 
 const Label = styled.label<{ isFocused: boolean; lableColor: string }>`
   ${Position("AB", "Y")}
+  font-size: ${Theme.font.s24};
   color: ${(props) => props.lableColor};
   left: 20px;
+  cursor: pointer;
   ${(props) =>
     props.isFocused
       ? `${Position(
           "AB"
-        )}; top: 10px; left: 210px; transition: top 250ms 300ms ease, left 300ms ease;`
+        )}; top: 10px; left: 215px; transition: top 250ms 250ms ease, left 250ms ease;`
       : `${Position(
           "AB",
           "Y"
-        )}; transition: top 250ms ease, left 300ms 250ms ease;`}
+        )}; transition: top 250ms 150ms ease, left 300ms 300ms ease;`}
 `;
 
 const Input = styled.input<{
@@ -57,16 +60,17 @@ const Input = styled.input<{
   isFocused: boolean;
 }>`
   ${ResetInput}
-  /* width: 100%; */
   color: ${(props) => props.inputTextColor};
   caret-color: ${(props) => props.caretColor};
+  font-size: ${Theme.font.s24};
   &::placeholder {
+    font-size: ${Theme.font.s24};
     color: ${(props) => Rgba(props.inputTextColor, Theme.opacity.o5)};
     max-width: ${(props) => (props.isFocused ? "100%" : "0")};
     overflow: hidden;
     transition: ${(props) =>
       props.isFocused
-        ? "max-width 250ms 60ms linear"
+        ? "max-width 300ms 60ms linear"
         : "max-width 300ms 100ms linear"};
   }
 `;
@@ -101,6 +105,8 @@ export const InputComponent: React.FC<IInputComponent> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
+  const device = useViewport();
+
   return (
     <Wrapper>
       {error && (
@@ -121,11 +127,13 @@ export const InputComponent: React.FC<IInputComponent> = ({
           </svg>
         </ErrorWrapper>
       )}
-      <InputWrapper lineColor={color}>
-        <Label lableColor={color} isFocused={isFocused}>
+      <InputWrapper deviceType={device.device} lineColor={color}>
+        <Label htmlFor="inputText" lableColor={color} isFocused={isFocused}>
           {label}
         </Label>
         <Input
+          name="inputText"
+          id="inputText"
           isFocused={isFocused}
           placeholder={placeholder}
           inputTextColor={color}

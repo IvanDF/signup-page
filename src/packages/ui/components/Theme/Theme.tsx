@@ -32,7 +32,7 @@ export const Theme = {
     // Font values
     s72: "72px",
     s48: "48px",
-    s34: "34px",
+    s24: "24px",
     s18: "18px",
 
     w400: "400",

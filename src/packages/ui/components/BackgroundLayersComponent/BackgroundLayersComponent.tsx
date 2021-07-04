@@ -9,8 +9,11 @@ import IBackgroundLayersComponent from "./IBackgroundLayersComponent";
 
 const Wrapper = styled.div`
   ${FillSize}
-  position: relative;
+  position: absolute;
   overflow: hidden;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
 `;
 
 const DefaultLayersSettigns = (
