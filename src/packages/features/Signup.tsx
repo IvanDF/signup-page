@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
-import { useViewport } from "../hooks";
+import { useViewport, ViewportProvider } from "../hooks";
 import {
   ButtonComponent,
   DFlex,
@@ -8,6 +9,8 @@ import {
   Theme,
   TyphographyComponent,
 } from "../ui";
+import { Username } from "./SignupFlows/username/Username";
+import { Welcome } from "./SignupFlows/welcome/Welcome";
 
 const SignupFlows = styled.div<{ deviceType: string }>`
   position: relative;
@@ -22,30 +25,31 @@ const SignupFlows = styled.div<{ deviceType: string }>`
   }
 `;
 
-const Signup: React.FC = () => {
+const Signup: React.FC<{ baseUrl?: string }> = ({
+  baseUrl = window.location.href,
+}) => {
   const device = useViewport();
+
+  console.log(baseUrl);
 
   const [inputText, setInputText] = useState("");
 
   return (
     <SignupFlows deviceType={device.device}>
-      <TyphographyComponent textType={"HEADING"} color={Theme.color.yellow}>
-        Registrati per poter accedere alla tua area personale
-      </TyphographyComponent>
-      <InputComponent
-        label="Nome utente"
-        color={Theme.color.yellow}
-        value={inputText}
-        placeholder="Inserisci il tuo nome utente"
-        onChange={(e) => setInputText(e.target.value)}
-      />
-      <ButtonComponent
-        label="Registrati ora"
-        isUpper
-        bgColor={Theme.color.darkBlue}
-        bgColorLayer={Theme.color.blue}
-        textColor={Theme.color.yellow}
-      />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/welcome">
+            <ViewportProvider>
+              <Welcome />
+            </ViewportProvider>
+          </Route>
+          <Route exact path={`/username`}>
+            <ViewportProvider>
+              <Username />
+            </ViewportProvider>
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </SignupFlows>
   );
 };
