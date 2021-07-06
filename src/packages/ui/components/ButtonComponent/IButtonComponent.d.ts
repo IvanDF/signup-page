@@ -4,4 +4,5 @@ export default interface IButtonComponent {
   textColor: string;
   bgColor: string;
   bgColorLayer: string;
+  onClick: () => void;
 }

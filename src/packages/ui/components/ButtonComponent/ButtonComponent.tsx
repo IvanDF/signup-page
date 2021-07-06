@@ -42,10 +42,16 @@ export const ButtonComponent: React.FC<IButtonComponent> = ({
   textColor,
   bgColor,
   bgColorLayer,
+  onClick,
 }) => {
   return (
     <>
-      <Button isUpper={isUpper} textColor={textColor} bgColor={bgColor}>
+      <Button
+        onClick={onClick}
+        isUpper={isUpper}
+        textColor={textColor}
+        bgColor={bgColor}
+      >
         <ButtonLayer bgColorLayer={bgColorLayer}>{label}</ButtonLayer>
       </Button>
     </>

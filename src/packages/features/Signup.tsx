@@ -9,6 +9,10 @@ import {
   Theme,
   TyphographyComponent,
 } from "../ui";
+import { Done } from "./SignupFlows/done/Done";
+import { Email } from "./SignupFlows/email/Email";
+import { Password } from "./SignupFlows/password/Password";
+import { Phone } from "./SignupFlows/phone/Phone";
 import { Username } from "./SignupFlows/username/Username";
 import { Welcome } from "./SignupFlows/welcome/Welcome";
 
@@ -38,7 +42,7 @@ const Signup: React.FC<{ baseUrl?: string }> = ({
     <SignupFlows deviceType={device.device}>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/welcome">
+          <Route exact path="/">
             <ViewportProvider>
               <Welcome />
             </ViewportProvider>
@@ -46,6 +50,26 @@ const Signup: React.FC<{ baseUrl?: string }> = ({
           <Route exact path={`/username`}>
             <ViewportProvider>
               <Username />
+            </ViewportProvider>
+          </Route>
+          <Route exact path={`/email`}>
+            <ViewportProvider>
+              <Email />
+            </ViewportProvider>
+          </Route>
+          <Route exact path={`/phone`}>
+            <ViewportProvider>
+              <Phone />
+            </ViewportProvider>
+          </Route>
+          <Route exact path={`/password`}>
+            <ViewportProvider>
+              <Password />
+            </ViewportProvider>
+          </Route>
+          <Route exact path={`/done`}>
+            <ViewportProvider>
+              <Done />
             </ViewportProvider>
           </Route>
         </Switch>

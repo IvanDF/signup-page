@@ -6,27 +6,27 @@ import {
   ButtonComponent,
 } from "../../../ui";
 
-export const Username = () => {
+export const Phone = () => {
   const [inputText, setInputText] = useState("");
   return (
     <>
-      <TyphographyComponent textType={"HEADING"} color={Theme.color.blue}>
-        Iniziamo! <br /> Chi sei?
+      <TyphographyComponent textType={"HEADING"} color={Theme.color.yellow}>
+        Abbiamo quasi finito! <br /> Inserisci il numero di telefono
       </TyphographyComponent>
       <InputComponent
-        label="Nome utente"
-        color={Theme.color.blue}
+        label="Cellulare"
+        color={Theme.color.yellow}
         value={inputText}
-        placeholder="Inserisci il tuo nome utente"
+        placeholder="Inserisci numero cellulare"
         onChange={(e) => setInputText(e.target.value)}
       />
       <ButtonComponent
         onClick={() => console.log("e")}
-        label="Registrati ora"
+        label="Continua"
         isUpper
-        bgColor={Theme.color.darkBlue}
-        bgColorLayer={Theme.color.blue}
-        textColor={Theme.color.yellow}
+        bgColor={Theme.color.orange}
+        bgColorLayer={Theme.color.yellow}
+        textColor={Theme.color.blue}
       />
     </>
   );

@@ -6,18 +6,18 @@ import {
   ButtonComponent,
 } from "../../../ui";
 
-export const Username = () => {
+export const Password = () => {
   const [inputText, setInputText] = useState("");
   return (
     <>
-      <TyphographyComponent textType={"HEADING"} color={Theme.color.blue}>
-        Iniziamo! <br /> Chi sei?
+      <TyphographyComponent textType={"HEADING"} color={Theme.color.orange}>
+        Infine rendiamo sicuro l’account, mi raccomando una password complessa!
       </TyphographyComponent>
       <InputComponent
-        label="Nome utente"
-        color={Theme.color.blue}
+        label="Password"
+        color={Theme.color.orange}
         value={inputText}
-        placeholder="Inserisci il tuo nome utente"
+        placeholder="Inserisci una password"
         onChange={(e) => setInputText(e.target.value)}
       />
       <ButtonComponent
