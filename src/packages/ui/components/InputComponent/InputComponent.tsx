@@ -106,6 +106,7 @@ export const InputComponent: React.FC<IInputComponent> = ({
   error,
   errorMessage,
   onChange,
+  onEnter,
   color,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -148,6 +149,7 @@ export const InputComponent: React.FC<IInputComponent> = ({
           onBlur={() => value.length === 0 && setIsFocused(false)}
           type={type}
           onChange={onChange}
+          onKeyDown={onEnter}
         />
       </InputWrapper>
     </Wrapper>

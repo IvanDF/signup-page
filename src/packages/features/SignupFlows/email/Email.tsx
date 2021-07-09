@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSignupFlowState } from "../../../hooks";
 import {
   TyphographyComponent,
   Theme,
@@ -7,6 +8,7 @@ import {
 } from "../../../ui";
 
 export const Email = () => {
+  const { nextStep } = useSignupFlowState("PHONE");
   const [inputText, setInputText] = useState("");
   return (
     <>
@@ -14,6 +16,7 @@ export const Email = () => {
         Ora inserisci il tuo indirizzo mail
       </TyphographyComponent>
       <InputComponent
+        onEnter={(e) => e.key === "Enter" && nextStep()}
         label="E-mail"
         color={Theme.color.darkBlue}
         value={inputText}
@@ -21,7 +24,7 @@ export const Email = () => {
         onChange={(e) => setInputText(e.target.value)}
       />
       <ButtonComponent
-        onClick={() => console.log("e")}
+        onClick={() => nextStep()}
         label="Invia E-mail"
         isUpper
         bgColor={Theme.color.darkBlue}

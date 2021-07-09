@@ -6,15 +6,7 @@ export const FillSize = () => css`
   height: 100%;
 `;
 
-/********************************************************
- * DA IMPLEMENTARE LO STATO BLOBALE CON REDUX
- *******************************************************/
-let layerState = "";
-/********************************************************
- * DA IMPLEMENTARE LO STATO BLOBALE CON REDUX
- *******************************************************/
-
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle<{ layerState: string }>`
   *,
   *::before,
   *::after {
@@ -37,32 +29,34 @@ export const GlobalStyle = createGlobalStyle`
     }
     *::selection
     {
-       ${
+       ${(layerState) =>
          layerState === "PASSWORD"
            ? `
        background: ${Theme.color.orange};
        color: ${Theme.color.darkBlue};
        `
-           : layerState === "PHONE"
-           ? `
+           : (layerState) =>
+               layerState === "PHONE"
+                 ? `
        background: ${Theme.color.yellow};
        color: ${Theme.color.blue};
        `
-           : layerState === "EMAIL"
-           ? `
+                 : (layerState) =>
+                     layerState === "EMAIL"
+                       ? `
        background: ${Theme.color.darkBlue};
        color: ${Theme.color.orange};
        `
-           : layerState === "START"
-           ? `
+                       : (layerState) =>
+                           layerState === "START"
+                             ? `
        background: ${Theme.color.blue};
        color: ${Theme.color.warning};
        `
-           : `
+                             : `
            background: ${Theme.color.yellow};
        color: ${Theme.color.bg};
-       `
-       } 
+       `} 
       }
   }`;
 

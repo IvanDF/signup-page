@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSignupFlowState } from "../../../hooks";
 import {
   TyphographyComponent,
   Theme,
@@ -7,6 +8,7 @@ import {
 } from "../../../ui";
 
 export const Username = () => {
+  const { nextStep } = useSignupFlowState("EMAIL");
   const [inputText, setInputText] = useState("");
   return (
     <>
@@ -14,6 +16,7 @@ export const Username = () => {
         Iniziamo! <br /> Chi sei?
       </TyphographyComponent>
       <InputComponent
+        onEnter={(e) => e.key === "Enter" && nextStep()}
         label="Nome utente"
         color={Theme.color.blue}
         value={inputText}
@@ -21,7 +24,7 @@ export const Username = () => {
         onChange={(e) => setInputText(e.target.value)}
       />
       <ButtonComponent
-        onClick={() => console.log("e")}
+        onClick={() => nextStep()}
         label="Registrati ora"
         isUpper
         bgColor={Theme.color.darkBlue}

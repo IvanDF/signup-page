@@ -4,7 +4,6 @@ import styled, { css } from "styled-components";
 import { useViewport } from "../../../hooks";
 import { FillSize } from "../../index";
 import { Theme } from "../Theme/Theme";
-
 import IBackgroundLayersComponent from "./IBackgroundLayersComponent";
 
 const Wrapper = styled.div`
@@ -41,8 +40,11 @@ const DefaultLayersSettigns = (
     solid
     ${(props) => (props.layerState === layerName ? bgColor : "transparent")};
   transform: translateY(50%);
-  transition: border-right 350ms linear, border-bottom 200ms 250ms linear,
-    border-top 250ms 250ms linear;
+  transition: ${(props) =>
+    props.layerState !== layerName
+      ? `all 200ms 1s linear`
+      : `border-right 350ms linear, border-bottom 200ms 250ms linear,
+    border-top 250ms 250ms linear`};
 `;
 
 const BackgroundLayer = styled.div<{
@@ -52,7 +54,7 @@ const BackgroundLayer = styled.div<{
   size: number;
 }>`
   ${(props) =>
-    props.name === "FINE"
+    props.name === "DONE"
       ? DefaultLayersSettigns(
           props.zIndex,
           props.size * 1.5,
@@ -84,7 +86,7 @@ const BackgroundLayer = styled.div<{
           props.name,
           Theme.color.orange
         )
-      : props.name === "START" &&
+      : props.name === "USERNAME" &&
         DefaultLayersSettigns(
           props.zIndex,
           props.size * 1.5,
@@ -106,7 +108,7 @@ export const BackgroundLayersComponent: React.FC<IBackgroundLayersComponent> =
 
     const BackgroundLayersSettings = [
       {
-        name: "Fine",
+        name: "Done",
         zIndex: 15,
         size: shapesSize,
       },
@@ -126,7 +128,7 @@ export const BackgroundLayersComponent: React.FC<IBackgroundLayersComponent> =
         size: shapesSize * 2.5,
       },
       {
-        name: "Start",
+        name: "Username",
         zIndex: 11,
         size: shapesSize * 3,
       },

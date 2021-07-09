@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSignupFlowState } from "../../../hooks";
 import {
   TyphographyComponent,
   Theme,
@@ -7,6 +8,7 @@ import {
 } from "../../../ui";
 
 export const Password = () => {
+  const { nextStep } = useSignupFlowState("DONE");
   const [inputText, setInputText] = useState("");
   return (
     <>
@@ -14,6 +16,7 @@ export const Password = () => {
         Infine rendiamo sicuro l’account, mi raccomando una password complessa!
       </TyphographyComponent>
       <InputComponent
+        onEnter={(e) => e.key === "Enter" && nextStep()}
         label="Password"
         color={Theme.color.orange}
         value={inputText}
@@ -21,7 +24,7 @@ export const Password = () => {
         onChange={(e) => setInputText(e.target.value)}
       />
       <ButtonComponent
-        onClick={() => console.log("e")}
+        onClick={() => nextStep()}
         label="Registrati ora"
         isUpper
         bgColor={Theme.color.darkBlue}

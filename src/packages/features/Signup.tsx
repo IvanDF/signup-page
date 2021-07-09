@@ -1,20 +1,8 @@
-import { useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import { useViewport, ViewportProvider } from "../hooks";
-import {
-  ButtonComponent,
-  DFlex,
-  InputComponent,
-  Theme,
-  TyphographyComponent,
-} from "../ui";
-import { Done } from "./SignupFlows/done/Done";
-import { Email } from "./SignupFlows/email/Email";
-import { Password } from "./SignupFlows/password/Password";
-import { Phone } from "./SignupFlows/phone/Phone";
-import { Username } from "./SignupFlows/username/Username";
-import { Welcome } from "./SignupFlows/welcome/Welcome";
+import { DFlex } from "../ui";
+import { Welcome, Username, Email, Phone, Password, Done } from "./SignupFlows";
 
 const SignupFlows = styled.div<{ deviceType: string }>`
   position: relative;
@@ -29,14 +17,8 @@ const SignupFlows = styled.div<{ deviceType: string }>`
   }
 `;
 
-const Signup: React.FC<{ baseUrl?: string }> = ({
-  baseUrl = window.location.href,
-}) => {
+const Signup: React.FC = () => {
   const device = useViewport();
-
-  console.log(baseUrl);
-
-  const [inputText, setInputText] = useState("");
 
   return (
     <SignupFlows deviceType={device.device}>

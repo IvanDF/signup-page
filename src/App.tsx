@@ -1,17 +1,24 @@
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Signup from "./packages/features/Signup";
-import { BackgroundLayersComponent, FillSize } from "./packages/ui";
+import { signupState } from "./packages/state/signupSlice";
+import {
+  BackgroundLayersComponent,
+  FillSize,
+  GlobalStyle,
+} from "./packages/ui";
 
 const Wrapper = styled.div`
   ${FillSize};
 `;
 
 export const App = () => {
+  const signupStateSelector = useSelector(signupState);
   return (
     <Wrapper>
       <Signup />
-      <BackgroundLayersComponent layerState={""} />
+      <GlobalStyle layerState={signupStateSelector} />
+      <BackgroundLayersComponent layerState={signupStateSelector} />
     </Wrapper>
   );
 };

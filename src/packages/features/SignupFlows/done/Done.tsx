@@ -1,10 +1,4 @@
-import { useState } from "react";
-import {
-  TyphographyComponent,
-  Theme,
-  InputComponent,
-  ButtonComponent,
-} from "../../../ui";
+import { TyphographyComponent, Theme } from "../../../ui";
 
 export const Done = () => {
   return (

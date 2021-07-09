@@ -1,15 +1,16 @@
-import { useHistory } from "react-router-dom";
+import { useSignupFlowState } from "../../../hooks";
 import { TyphographyComponent, Theme, ButtonComponent } from "../../../ui";
 
 export const Welcome = () => {
-  const history = useHistory();
+  const { nextStep } = useSignupFlowState("USERNAME");
+
   return (
     <>
       <TyphographyComponent textType={"HEADING"} color={Theme.color.yellow}>
         Registrati per poter accedere alla tua area personale
       </TyphographyComponent>
       <ButtonComponent
-        onClick={() => history.push("/username")}
+        onClick={() => nextStep()}
         label="Registrati ora"
         isUpper
         bgColor={Theme.color.darkBlue}

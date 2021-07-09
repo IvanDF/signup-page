@@ -11,6 +11,7 @@ export default interface IInputComponent {
   value: string;
   placeholder: string;
   onChange: (e: any) => void;
+  onEnter?: (e: any) => void;
 
   // Colors
   color: string;
