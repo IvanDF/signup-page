@@ -6,6 +6,7 @@ import {
   InputComponent,
   ButtonComponent,
 } from "../../../ui";
+import { InputWrapper } from "../../Signup";
 
 export const Email = () => {
   const { nextStep } = useSignupFlowState("PHONE");
@@ -15,22 +16,27 @@ export const Email = () => {
       <TyphographyComponent textType={"HEADING"} color={Theme.color.darkBlue}>
         Ora inserisci il tuo indirizzo mail
       </TyphographyComponent>
-      <InputComponent
-        onEnter={(e) => e.key === "Enter" && nextStep()}
-        label="E-mail"
-        color={Theme.color.darkBlue}
-        value={inputText}
-        placeholder="Inserisci indirizzo e-mail"
-        onChange={(e) => setInputText(e.target.value)}
-      />
-      <ButtonComponent
-        onClick={() => nextStep()}
-        label="Invia E-mail"
-        isUpper
-        bgColor={Theme.color.darkBlue}
-        bgColorLayer={Theme.color.blue}
-        textColor={Theme.color.yellow}
-      />
+      <InputWrapper>
+        <InputComponent
+          onEnter={(e) => e.key === "Enter" && nextStep()}
+          label="E-mail"
+          type="email"
+          color={Theme.color.darkBlue}
+          value={inputText}
+          placeholder="Inserisci indirizzo e-mail"
+          onChange={(e) => setInputText(e.target.value)}
+        />
+      </InputWrapper>
+      {inputText !== "" && (
+        <ButtonComponent
+          onClick={() => nextStep()}
+          label="Invia E-mail"
+          isUpper
+          bgColor={Theme.color.darkBlue}
+          bgColorLayer={Theme.color.blue}
+          textColor={Theme.color.yellow}
+        />
+      )}
     </>
   );
 };

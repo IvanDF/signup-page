@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useViewport } from "../../../hooks";
 import { Theme } from "../Theme/Theme";
 import IButtonComponent from "./IButtonComponent";
 
@@ -20,16 +21,19 @@ const Button = styled.button<{
   isUpper?: boolean;
   textColor: string;
   bgColor: string;
+  deviceType: string;
 }>`
   ${({ isUpper }) => isUpper && "text-transform: uppercase"};
   color: ${({ textColor }) => textColor};
   background-color: ${({ bgColor }) => bgColor};
   border-radius: 5px;
-  font-size: ${Theme.font.s24};
+  font-size: ${(props) =>
+    props.deviceType === "mobile" ? Theme.font.s16 : Theme.font.s24};
   z-index: 1;
   border: none;
   outline: none;
   cursor: pointer;
+
   &:hover ${ButtonLayer} {
     top: -13px;
     right: -12px;
@@ -44,6 +48,7 @@ export const ButtonComponent: React.FC<IButtonComponent> = ({
   bgColorLayer,
   onClick,
 }) => {
+  const device = useViewport();
   return (
     <>
       <Button
@@ -51,6 +56,7 @@ export const ButtonComponent: React.FC<IButtonComponent> = ({
         isUpper={isUpper}
         textColor={textColor}
         bgColor={bgColor}
+        deviceType={device.device}
       >
         <ButtonLayer bgColorLayer={bgColorLayer}>{label}</ButtonLayer>
       </Button>

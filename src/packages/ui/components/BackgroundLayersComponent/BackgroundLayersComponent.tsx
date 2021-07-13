@@ -98,13 +98,13 @@ const BackgroundLayer = styled.div<{
 
 export const BackgroundLayersComponent: React.FC<IBackgroundLayersComponent> =
   ({ layerState }) => {
-    const deviceType = useViewport();
+    const device = useViewport();
 
     const [shapesSize, setShapesSize] = useState(0);
 
     useEffect(() => {
-      deviceType.device === "mobile" ? setShapesSize(80) : setShapesSize(150);
-    }, [deviceType.device]);
+      device.device === "mobile" ? setShapesSize(60) : setShapesSize(150);
+    }, [device.device]);
 
     const BackgroundLayersSettings = [
       {

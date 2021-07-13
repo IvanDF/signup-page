@@ -23,7 +23,7 @@ const InputWrapper = styled.div<{ lineColor: string; deviceType: string }>`
     top: 6px;
     height: 3px;
     border-radius: 5px;
-    width: 200px;
+    width: ${(props) => (props.deviceType === "mobile" ? "100px" : "200px")};
     background: ${(props) => props.lineColor};
   }
   &::before {
@@ -39,37 +39,46 @@ const InputWrapper = styled.div<{ lineColor: string; deviceType: string }>`
   }
 `;
 
-const Label = styled.label<{ isFocused: boolean; lableColor: string }>`
+const Label = styled.label<{
+  isFocused: boolean;
+  lableColor: string;
+  deviceType: string;
+}>`
   font-family: "spartan", sans-serif;
-  font-size: ${Theme.font.s24};
+  font-size: ${(props) =>
+    props.deviceType === "mobile" ? Theme.font.s16 : Theme.font.s24};
+
   ${Position("AB", "Y")}
   color: ${(props) => props.lableColor};
   left: 20px;
   cursor: pointer;
   ${(props) =>
     props.isFocused
-      ? `${Position(
-          "AB"
-        )}; top: 10px; left: 215px; transition: top 250ms 250ms ease, left 250ms ease;`
+      ? `${Position("AB")}; top: 3px; left: ${
+          props.deviceType === "mobile" ? "115px" : "215px"
+        }; transition: top 250ms 250ms ease, left 250ms ease;`
       : `${Position(
           "AB",
           "Y"
-        )}; transition: top 250ms 150ms ease, left 300ms 300ms ease;`}
+        )}; transition: top 250ms 200ms ease, left 300ms 300ms ease;`}
 `;
 
 const Input = styled.input<{
   caretColor: string;
   inputTextColor: string;
   isFocused: boolean;
+  deviceType: string;
 }>`
   ${ResetInput}
   font-family: "spartan", sans-serif;
-  font-size: ${Theme.font.s24};
+  font-size: ${(props) =>
+    props.deviceType === "mobile" ? Theme.font.s16 : Theme.font.s24};
   color: ${(props) => props.inputTextColor};
   caret-color: ${(props) => props.caretColor};
   &::placeholder {
     font-family: "spartan", sans-serif;
-    font-size: ${Theme.font.s24};
+    font-size: ${(props) =>
+      props.deviceType === "mobile" ? Theme.font.s16 : Theme.font.s24};
     color: ${(props) => Rgba(props.inputTextColor, Theme.opacity.o5)};
     max-width: ${(props) => (props.isFocused ? "100%" : "0")};
     overflow: hidden;
@@ -134,7 +143,12 @@ export const InputComponent: React.FC<IInputComponent> = ({
         </ErrorWrapper>
       )}
       <InputWrapper deviceType={device.device} lineColor={color}>
-        <Label htmlFor="inputText" lableColor={color} isFocused={isFocused}>
+        <Label
+          htmlFor="inputText"
+          lableColor={color}
+          isFocused={isFocused}
+          deviceType={device.device}
+        >
           {label}
         </Label>
         <Input
@@ -148,8 +162,10 @@ export const InputComponent: React.FC<IInputComponent> = ({
           onFocus={() => setIsFocused(true)}
           onBlur={() => value.length === 0 && setIsFocused(false)}
           type={type}
+          autoFocus
           onChange={onChange}
           onKeyDown={onEnter}
+          deviceType={device.device}
         />
       </InputWrapper>
     </Wrapper>

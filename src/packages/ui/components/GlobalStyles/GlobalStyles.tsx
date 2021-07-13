@@ -21,12 +21,8 @@ export const GlobalStyle = createGlobalStyle<{ layerState: string }>`
   }
 
   body {
-    width: 100%;
-    height: 100vh;
+    ${FillSize}
     background: ${Theme.color.bg};
-    #root {
-      ${FillSize}
-    }
     *::selection
     {
        ${(layerState) =>
