@@ -14,10 +14,16 @@ const Wrapper = styled.div`
 
 export const App = () => {
   const signupStateSelector = useSelector(signupState);
+
+  window.addEventListener("resize", () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  });
+
   return (
     <Wrapper>
       <Signup />
-      <GlobalStyle layerState={signupStateSelector} />
+      <GlobalStyle />
       <BackgroundLayersComponent layerState={signupStateSelector} />
     </Wrapper>
   );

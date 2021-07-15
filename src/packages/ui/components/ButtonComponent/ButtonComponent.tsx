@@ -1,11 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { useViewport } from "../../../hooks";
+import { Rgba } from "../Rgba/Rgba";
 import { Theme } from "../Theme/Theme";
 import IButtonComponent from "./IButtonComponent";
 
-const ButtonLayer = styled.div<{ bgColorLayer: string }>`
+const ButtonLayer = styled.div<{
+  bgColorLayer: string;
+  isBtnDisabled: boolean;
+}>`
   position: relative;
+  opacity: ${(props) => (props.isBtnDisabled ? "0.25" : "1")};
   height: 100%;
   width: 100%;
   background-color: ${({ bgColorLayer }) => bgColorLayer};
@@ -14,7 +19,7 @@ const ButtonLayer = styled.div<{ bgColorLayer: string }>`
   top: 0;
   right: 0;
   transition: top 250ms ease-in-out, right 250ms ease-in-out;
-  cursor: pointer;
+  cursor: ${(props) => (props.isBtnDisabled ? "not-allowed" : "pointer")}; ;
 `;
 
 const Button = styled.button<{
@@ -25,7 +30,8 @@ const Button = styled.button<{
 }>`
   ${({ isUpper }) => isUpper && "text-transform: uppercase"};
   color: ${({ textColor }) => textColor};
-  background-color: ${({ bgColor }) => bgColor};
+  background-color: ${(props) =>
+    props.disabled ? Rgba(props.bgColor, Theme.opacity.o5) : props.bgColor};
   border-radius: 5px;
   font-size: ${(props) =>
     props.deviceType === "mobile" ? Theme.font.s16 : Theme.font.s24};
@@ -33,16 +39,20 @@ const Button = styled.button<{
   border: none;
   outline: none;
   cursor: pointer;
-
+  ${(props) =>
+    !props.disabled &&
+    `
   &:hover ${ButtonLayer} {
     top: -13px;
     right: -12px;
   }
+  `}
 `;
 
 export const ButtonComponent: React.FC<IButtonComponent> = ({
   label,
   isUpper,
+  disabled = false,
   textColor,
   bgColor,
   bgColorLayer,
@@ -52,13 +62,16 @@ export const ButtonComponent: React.FC<IButtonComponent> = ({
   return (
     <>
       <Button
+        disabled={disabled}
         onClick={onClick}
         isUpper={isUpper}
         textColor={textColor}
         bgColor={bgColor}
         deviceType={device.device}
       >
-        <ButtonLayer bgColorLayer={bgColorLayer}>{label}</ButtonLayer>
+        <ButtonLayer bgColorLayer={bgColorLayer} isBtnDisabled={disabled}>
+          {label}
+        </ButtonLayer>
       </Button>
     </>
   );

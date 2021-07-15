@@ -6,7 +6,6 @@ import {
   InputComponent,
   ButtonComponent,
 } from "../../../ui";
-import { InputWrapper } from "../../Signup";
 
 export const Username = () => {
   const { nextStep } = useSignupFlowState("EMAIL");
@@ -16,26 +15,23 @@ export const Username = () => {
       <TyphographyComponent textType={"HEADING"} color={Theme.color.blue}>
         Iniziamo! <br /> Chi sei?
       </TyphographyComponent>
-      <InputWrapper>
-        <InputComponent
-          onEnter={(e) => e.key === "Enter" && nextStep()}
-          label="Nome utente"
-          color={Theme.color.blue}
-          value={inputText}
-          placeholder="Inserisci il tuo nome utente"
-          onChange={(e) => setInputText(e.target.value)}
-        />
-      </InputWrapper>
-      {inputText !== "" && (
-        <ButtonComponent
-          onClick={() => nextStep()}
-          label="Registrati ora"
-          isUpper
-          bgColor={Theme.color.darkBlue}
-          bgColorLayer={Theme.color.blue}
-          textColor={Theme.color.yellow}
-        />
-      )}
+      <InputComponent
+        onEnter={(e) => e.key === "Enter" && inputText !== "" && nextStep()}
+        label="Nome utente"
+        color={Theme.color.blue}
+        value={inputText}
+        placeholder="Inserisci il tuo nome utente"
+        onChange={(e) => setInputText(e.target.value)}
+      />
+      <ButtonComponent
+        disabled={inputText === ""}
+        onClick={() => nextStep()}
+        label="Registrati ora"
+        isUpper
+        bgColor={Theme.color.darkBlue}
+        bgColorLayer={Theme.color.blue}
+        textColor={Theme.color.yellow}
+      />
     </>
   );
 };

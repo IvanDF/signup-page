@@ -1,24 +1,19 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
-import { useSignupFlowState, useViewport, ViewportProvider } from "../hooks";
-import { signupState, setState } from "../state/signupSlice";
+import { useViewport, ViewportProvider } from "../hooks";
+import { setState, signupState } from "../state/signupSlice";
 import { DFlex } from "../ui";
 import { Welcome, Username, Email, Phone, Password, Done } from "./SignupFlows";
 
-export const InputWrapper = styled.div`
-  margin: 40% 0 35%;
-`;
-
 const SignupFlows = styled.div<{ deviceType: string }>`
-  /* min-height: -webkit-fill-available; // funziona su iphone
-  min-height: 100vh; // funziona su desktop */
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   position: relative;
-  ${DFlex("SPACE-BETWEEN")} // vedere come risolvere senza space batween
+  ${DFlex("SPACE-BETWEEN")}
   flex-direction: column;
   align-items: flex-start;
-  height: ${({ deviceType }) => (deviceType === "mobile" ? "60%" : "100%")};
   width: ${({ deviceType }) => (deviceType !== "mobile" ? "60%" : "100%")};
   padding: 5% 2%;
   > h3 {
@@ -28,6 +23,19 @@ const SignupFlows = styled.div<{ deviceType: string }>`
 
 const Signup: React.FC = () => {
   const device = useViewport();
+  const dispatch = useDispatch();
+  const signupStateSelector = useSelector(signupState);
+  const urlName = window.location.pathname.toUpperCase().slice(1);
+
+  useEffect(() => {
+    console.log(signupStateSelector, "STATO-PRIMA");
+    // if (signupStateSelector === urlName.toUpperCase()) {
+    dispatch(setState({ value: urlName }));
+    // }
+
+    console.log(signupStateSelector, "STATO-DOPO");
+    console.log(urlName, "URL");
+  }, []); // <-- lasciare vuoto l'array
 
   return (
     <SignupFlows deviceType={device.device}>
