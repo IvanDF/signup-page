@@ -28,13 +28,7 @@ const Signup: React.FC = () => {
   const urlName = window.location.pathname.toUpperCase().slice(1);
 
   useEffect(() => {
-    console.log(signupStateSelector, "STATO-PRIMA");
-    // if (signupStateSelector === urlName.toUpperCase()) {
     dispatch(setState({ value: urlName }));
-    // }
-
-    console.log(signupStateSelector, "STATO-DOPO");
-    console.log(urlName, "URL");
   }, []); // <-- lasciare vuoto l'array
 
   // onunload onbeforeunload EFFETTUARE IL REDIRECT ALLA RIAPERTURA DEL TAB

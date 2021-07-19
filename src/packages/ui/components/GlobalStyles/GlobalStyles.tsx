@@ -6,10 +6,7 @@ export const FillSize = () => css`
   height: 100%;
 `;
 
-// DA RENDERE DINAMICO
-let layerState = "INIT";
-
-export const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle<{ layerState: string }>`
   *,
   *::before,
   *::after {
@@ -28,32 +25,31 @@ export const GlobalStyle = createGlobalStyle`
     background: ${Theme.color.bg};
     *::selection
     {
-       ${
-         layerState === "PASSWORD"
+       ${(props) =>
+         props.layerState === "PASSWORD"
            ? `
        background: ${Theme.color.orange};
        color: ${Theme.color.darkBlue};
        `
-           : layerState === "PHONE"
+           : props.layerState === "PHONE"
            ? `
        background: ${Theme.color.yellow};
        color: ${Theme.color.blue};
        `
-           : layerState === "EMAIL"
+           : props.layerState === "EMAIL"
            ? `
        background: ${Theme.color.darkBlue};
        color: ${Theme.color.orange};
        `
-           : layerState === "USERNAME"
+           : props.layerState === "USERNAME"
            ? `
        background: ${Theme.color.blue};
-       color: ${Theme.color.warning};
+       color: ${Theme.color.yellow};
        `
            : `
-           background: ${Theme.color.white};
-       color: ${Theme.color.warning};
-       `
-       } 
+           background: ${Theme.color.yellow};
+       color: ${Theme.color.bg};
+       `} 
       }
   }`;
 

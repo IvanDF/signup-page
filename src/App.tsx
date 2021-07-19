@@ -23,7 +23,7 @@ export const App = () => {
   return (
     <Wrapper>
       <Signup />
-      <GlobalStyle />
+      <GlobalStyle layerState={signupStateSelector} />
       <BackgroundLayersComponent layerState={signupStateSelector} />
     </Wrapper>
   );
