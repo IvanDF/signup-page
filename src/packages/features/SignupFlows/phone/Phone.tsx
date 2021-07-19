@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSignupFlowState } from "../../../hooks";
+import { useInputValidator, useSignupFlowState } from "../../../hooks";
 import {
   TyphographyComponent,
   Theme,
@@ -9,7 +9,11 @@ import {
 
 export const Phone = () => {
   const { nextStep } = useSignupFlowState("PASSWORD");
-  const [inputText, setInputText] = useState("");
+
+  const pattern =
+    /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+  const { inputText, setInputText, isValid } = useInputValidator(pattern);
+
   return (
     <>
       <TyphographyComponent textType={"HEADING"} color={Theme.color.yellow}>
@@ -21,11 +25,13 @@ export const Phone = () => {
         type="tel"
         color={Theme.color.yellow}
         value={inputText}
+        error={inputText !== "" && !isValid}
+        errorMessage="Inserire un numeri di cellulare valido"
         placeholder="Inserisci numero cellulare"
         onChange={(e) => setInputText(e.target.value)}
       />
       <ButtonComponent
-        disabled={inputText === ""}
+        disabled={!isValid}
         onClick={() => nextStep()}
         label="Continua"
         isUpper

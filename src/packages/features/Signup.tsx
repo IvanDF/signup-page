@@ -37,6 +37,8 @@ const Signup: React.FC = () => {
     console.log(urlName, "URL");
   }, []); // <-- lasciare vuoto l'array
 
+  // onunload onbeforeunload EFFETTUARE IL REDIRECT ALLA RIAPERTURA DEL TAB
+
   return (
     <SignupFlows deviceType={device.device}>
       <BrowserRouter>

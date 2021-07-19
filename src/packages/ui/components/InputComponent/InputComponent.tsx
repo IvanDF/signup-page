@@ -92,12 +92,12 @@ const Input = styled.input<{
 const ErrorWrapper = styled.div`
   position: absolute;
   display: flex;
-  left: 115px;
-  bottom: 70px;
+  left: 40%;
+  bottom: 90px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 400px;
+  width: 80%;
   max-width: 100%;
 `;
 

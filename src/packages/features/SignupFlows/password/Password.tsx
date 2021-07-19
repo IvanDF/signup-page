@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSignupFlowState } from "../../../hooks";
+import { useInputValidator, useSignupFlowState } from "../../../hooks";
 import {
   TyphographyComponent,
   Theme,
@@ -9,7 +9,11 @@ import {
 
 export const Password = () => {
   const { nextStep } = useSignupFlowState("DONE");
-  const [inputText, setInputText] = useState("");
+
+  const pattern =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const { inputText, setInputText, isValid } = useInputValidator(pattern);
+
   return (
     <>
       <TyphographyComponent textType={"HEADING"} color={Theme.color.orange}>
@@ -21,11 +25,13 @@ export const Password = () => {
         type="password"
         color={Theme.color.orange}
         value={inputText}
+        error={inputText !== "" && !isValid}
+        errorMessage="La password non è sicura! Deve contenere almeno una una lettera maiuscola ed un numero ed un carattere speciale"
         placeholder="Inserisci una password"
         onChange={(e) => setInputText(e.target.value)}
       />
       <ButtonComponent
-        disabled={inputText === ""}
+        disabled={!isValid}
         onClick={() => nextStep()}
         label="Registrati ora"
         isUpper
