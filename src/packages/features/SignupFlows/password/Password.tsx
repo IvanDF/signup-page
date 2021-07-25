@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useInputValidator, useSignupFlowState } from "../../../hooks";
 import {
   TyphographyComponent,
@@ -6,8 +5,9 @@ import {
   InputComponent,
   ButtonComponent,
 } from "../../../ui";
+import { SignupFlowWrapper } from "../../Signup";
 
-export const Password = () => {
+export const Password: React.FC<{ fullwidth: boolean }> = ({ fullwidth }) => {
   const { nextStep } = useSignupFlowState("DONE");
 
   const pattern =
@@ -15,7 +15,7 @@ export const Password = () => {
   const { inputText, setInputText, isValid } = useInputValidator(pattern);
 
   return (
-    <>
+    <SignupFlowWrapper fullwidth={fullwidth}>
       <TyphographyComponent textType={"HEADING"} color={Theme.color.orange}>
         Infine rendiamo sicuro l’account, mi raccomando una password complessa!
       </TyphographyComponent>
@@ -39,6 +39,6 @@ export const Password = () => {
         bgColorLayer={Theme.color.blue}
         textColor={Theme.color.yellow}
       />
-    </>
+    </SignupFlowWrapper>
   );
 };

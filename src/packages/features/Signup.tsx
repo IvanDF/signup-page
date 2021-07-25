@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import { useViewport, ViewportProvider } from "../hooks";
-import { setState, signupState } from "../state/signupSlice";
+import { setState } from "../state/signupSlice";
 import { DFlex } from "../ui";
 import { Welcome, Username, Email, Phone, Password, Done } from "./SignupFlows";
 
@@ -14,24 +14,39 @@ const SignupFlows = styled.div<{ deviceType: string }>`
   ${DFlex("SPACE-BETWEEN")}
   flex-direction: column;
   align-items: flex-start;
-  width: ${({ deviceType }) => (deviceType !== "mobile" ? "60%" : "100%")};
+  width: 100%;
   padding: 5% 2%;
   > h3 {
     max-width: 750px;
   }
 `;
 
+export const SignupFlowWrapper = styled.div<{ fullwidth: boolean }>`
+  ${({ fullwidth }) =>
+    fullwidth
+      ? `
+  ${DFlex("CENTER")};
+  justify-content: center;
+  text-align: center;
+  `
+      : `
+  ${DFlex("SPACE-BETWEEN")};
+  align-items: flex-start;
+  justify-content: space-between;
+  `};
+  flex-direction: column;
+  height: 100%;
+  width: ${({ fullwidth }) => (fullwidth ? "100%" : "60%")};
+`;
+
 const Signup: React.FC = () => {
   const device = useViewport();
   const dispatch = useDispatch();
-  const signupStateSelector = useSelector(signupState);
   const urlName = window.location.pathname.toUpperCase().slice(1);
 
   useEffect(() => {
     dispatch(setState({ value: urlName }));
   }, []); // <-- lasciare vuoto l'array
-
-  // onunload onbeforeunload EFFETTUARE IL REDIRECT ALLA RIAPERTURA DEL TAB
 
   return (
     <SignupFlows deviceType={device.device}>
@@ -39,32 +54,32 @@ const Signup: React.FC = () => {
         <Switch>
           <Route exact path="/">
             <ViewportProvider>
-              <Welcome />
+              <Welcome fullwidth={false} />
             </ViewportProvider>
           </Route>
           <Route exact path={`/username`}>
             <ViewportProvider>
-              <Username />
+              <Username fullwidth={false} />
             </ViewportProvider>
           </Route>
           <Route exact path={`/email`}>
             <ViewportProvider>
-              <Email />
+              <Email fullwidth={false} />
             </ViewportProvider>
           </Route>
           <Route exact path={`/phone`}>
             <ViewportProvider>
-              <Phone />
+              <Phone fullwidth={false} />
             </ViewportProvider>
           </Route>
           <Route exact path={`/password`}>
             <ViewportProvider>
-              <Password />
+              <Password fullwidth={false} />
             </ViewportProvider>
           </Route>
           <Route exact path={`/done`}>
             <ViewportProvider>
-              <Done />
+              <Done fullwidth={true} />
             </ViewportProvider>
           </Route>
         </Switch>

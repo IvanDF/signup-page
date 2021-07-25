@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useState } from "react";
 import { useInputValidator, useSignupFlowState } from "../../../hooks";
 import {
   TyphographyComponent,
@@ -7,15 +5,16 @@ import {
   InputComponent,
   ButtonComponent,
 } from "../../../ui";
+import { SignupFlowWrapper } from "../../Signup";
 
-export const Email = () => {
+export const Email: React.FC<{ fullwidth: boolean }> = ({ fullwidth }) => {
   const { nextStep } = useSignupFlowState("PHONE");
   const pattern =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const { inputText, setInputText, isValid } = useInputValidator(pattern);
 
   return (
-    <>
+    <SignupFlowWrapper fullwidth={fullwidth}>
       <TyphographyComponent textType={"HEADING"} color={Theme.color.darkBlue}>
         Ora inserisci il tuo indirizzo mail
       </TyphographyComponent>
@@ -39,6 +38,6 @@ export const Email = () => {
         bgColorLayer={Theme.color.blue}
         textColor={Theme.color.yellow}
       />
-    </>
+    </SignupFlowWrapper>
   );
 };

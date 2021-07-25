@@ -70,6 +70,7 @@ const Input = styled.input<{
   deviceType: string;
 }>`
   ${ResetInput}
+  width: 100%;
   font-family: "spartan", sans-serif;
   font-size: ${(props) =>
     props.deviceType === "mobile" ? Theme.font.s16 : Theme.font.s24};

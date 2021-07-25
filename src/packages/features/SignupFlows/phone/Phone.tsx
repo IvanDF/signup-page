@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useInputValidator, useSignupFlowState } from "../../../hooks";
 import {
   TyphographyComponent,
@@ -6,8 +5,9 @@ import {
   InputComponent,
   ButtonComponent,
 } from "../../../ui";
+import { SignupFlowWrapper } from "../../Signup";
 
-export const Phone = () => {
+export const Phone: React.FC<{ fullwidth: boolean }> = ({ fullwidth }) => {
   const { nextStep } = useSignupFlowState("PASSWORD");
 
   const pattern =
@@ -15,7 +15,7 @@ export const Phone = () => {
   const { inputText, setInputText, isValid } = useInputValidator(pattern);
 
   return (
-    <>
+    <SignupFlowWrapper fullwidth={fullwidth}>
       <TyphographyComponent textType={"HEADING"} color={Theme.color.yellow}>
         Abbiamo quasi finito! <br /> Inserisci il numero di telefono
       </TyphographyComponent>
@@ -39,6 +39,6 @@ export const Phone = () => {
         bgColorLayer={Theme.color.yellow}
         textColor={Theme.color.blue}
       />
-    </>
+    </SignupFlowWrapper>
   );
 };

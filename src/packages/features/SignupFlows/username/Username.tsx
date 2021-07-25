@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSignupFlowState } from "../../../hooks";
 import {
   TyphographyComponent,
@@ -6,12 +6,13 @@ import {
   InputComponent,
   ButtonComponent,
 } from "../../../ui";
+import { SignupFlowWrapper } from "../../Signup";
 
-export const Username = () => {
+export const Username: React.FC<{ fullwidth: boolean }> = ({ fullwidth }) => {
   const { nextStep } = useSignupFlowState("EMAIL");
   const [inputText, setInputText] = useState("");
   return (
-    <>
+    <SignupFlowWrapper fullwidth={fullwidth}>
       <TyphographyComponent textType={"HEADING"} color={Theme.color.blue}>
         Iniziamo! <br /> Chi sei?
       </TyphographyComponent>
@@ -32,6 +33,6 @@ export const Username = () => {
         bgColorLayer={Theme.color.blue}
         textColor={Theme.color.yellow}
       />
-    </>
+    </SignupFlowWrapper>
   );
 };
