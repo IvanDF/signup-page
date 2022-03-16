@@ -9,7 +9,7 @@
 <p align="center">Demo of sign-up process.</p>
 <br>
 
-<video align='center' autoplay loop muted src="./src/packages/img/readme/demo.mov" width="100%"></video>
+<video align='center' autoplay loop muted src="./src/packages/img/readme/demo.gif" width="100%"></video>
 <br>
 <br>
 
